@@ -1,0 +1,146 @@
+/* =============================================================
+   ReFind — Dong-Eui University theme (navy / blue accent)
+   ============================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #f4f6fb;
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Header / navigation ---------- */
+.site-header {
+    background: #0b2a5b; /* navy */
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.brand:hover {
+    color: #bfdbfe;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #e0e7ff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-links a:hover {
+    background: #1d4ed8; /* blue accent */
+    color: #ffffff;
+}
+
+.user-name {
+    color: #bfdbfe;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* ---------- Main content ---------- */
+.site-main {
+    flex: 1 0 auto;
+}
+
+/* ---------- Hero (home page) ---------- */
+.hero {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 24px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    color: #0b2a5b;
+    margin-bottom: 16px;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #4b5563;
+    max-width: 640px;
+    margin: 0 auto 32px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+    background: #1d4ed8;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1e40af;
+}
+
+.btn-secondary {
+    background: #e0e7ff;
+    color: #1d4ed8;
+}
+
+.btn-secondary:hover {
+    background: #c7d2fe;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    background: #0b2a5b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 24px;
+    font-size: 0.9rem;
+    margin-top: 48px;
+}
