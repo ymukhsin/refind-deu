@@ -1,60 +1,36 @@
 <?php
-/**
- * ReFind — PDO database connection wrapper (singleton).
- *
- * Provides a single shared PDO connection for the whole request.
- */
+
+declare(strict_types=1);
 
 require_once __DIR__ . '/../config/config.php';
 
-class Database
-{
-    /** @var PDO|null */
-    private static $connection = null;
+$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
 
-    /**
-     * Private constructor to prevent direct instantiation.
-     */
-    private function __construct()
-    {
-    }
+$dbusername = DB_USER;
+$dbpassword = DB_PASS;
 
-    /**
-     * Prevent cloning of the singleton.
-     */
-    private function __clone()
-    {
-    }
+try {
+    $pdo = new PDO($dsn, $dbusername, $dbpassword);
 
-    /**
-     * Prevent unserializing the singleton.
-     */
-    public function __wakeup()
-    {
-        throw new \RuntimeException('Cannot unserialize a singleton.');
-    }
+    $pdo->setAttribute(
+        PDO::ATTR_ERRMODE,
+        PDO::ERRMODE_EXCEPTION
+    );
 
-    /**
-     * Return the shared PDO connection, creating it on first use.
-     *
-     * @return PDO
-     */
-    public static function getConnection(): PDO
-    {
-        if (self::$connection === null) {
-            $dsn = sprintf(
-                'mysql:host=%s;dbname=%s;charset=utf8mb4',
-                DB_HOST,
-                DB_NAME
-            );
+    $pdo->setAttribute(
+        PDO::ATTR_DEFAULT_FETCH_MODE,
+        PDO::FETCH_ASSOC
+    );
 
-            self::$connection = new PDO($dsn, DB_USER, DB_PASS, [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-            ]);
-        }
+    $pdo->setAttribute(
+        PDO::ATTR_EMULATE_PREPARES,
+        false
+    );
 
-        return self::$connection;
-    }
+} catch (PDOException $e) {
+    error_log('Database connection failed: ' . $e->getMessage());
+
+    http_response_code(500);
+
+    exit('Database connection failed. Check your MySQL settings.');
 }
