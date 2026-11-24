@@ -1,21 +1,7 @@
--- =============================================================
---  ReFind — Lost & Found System
---  MySQL database schema (utf8mb4)
---
---  Run with:  mysql -u root -p < database/schema.sql
--- =============================================================
-
-SET NAMES utf8mb4;
-
-CREATE DATABASE IF NOT EXISTS `refind`
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `refind`;
 
 USE `refind`;
 
--- -------------------------------------------------------------
--- Drop tables in reverse-dependency order for clean re-runs
--- -------------------------------------------------------------
 DROP TABLE IF EXISTS `returns`;
 DROP TABLE IF EXISTS `claims`;
 DROP TABLE IF EXISTS `listings`;
@@ -23,9 +9,6 @@ DROP TABLE IF EXISTS `locations`;
 DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `users`;
 
--- -------------------------------------------------------------
--- users
--- -------------------------------------------------------------
 CREATE TABLE `users` (
     `user_id`       INT AUTO_INCREMENT PRIMARY KEY,
     `full_name`     VARCHAR(100) NOT NULL,
@@ -37,29 +20,20 @@ CREATE TABLE `users` (
     `created_at`    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY `uq_users_email`      (`email`),
     UNIQUE KEY `uq_users_student_id` (`student_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- -------------------------------------------------------------
--- categories
--- -------------------------------------------------------------
 CREATE TABLE `categories` (
     `category_id` INT AUTO_INCREMENT PRIMARY KEY,
     `name`        VARCHAR(50) NOT NULL,
     UNIQUE KEY `uq_categories_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- -------------------------------------------------------------
--- locations
--- -------------------------------------------------------------
 CREATE TABLE `locations` (
     `location_id` INT AUTO_INCREMENT PRIMARY KEY,
     `name`        VARCHAR(100) NOT NULL,
     `building`    VARCHAR(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- -------------------------------------------------------------
--- listings
--- -------------------------------------------------------------
 CREATE TABLE `listings` (
     `listing_id`  INT AUTO_INCREMENT PRIMARY KEY,
     `reporter_id` INT NOT NULL,
@@ -79,11 +53,8 @@ CREATE TABLE `listings` (
         REFERENCES `categories` (`category_id`) ON DELETE RESTRICT,
     CONSTRAINT `fk_listings_location` FOREIGN KEY (`location_id`)
         REFERENCES `locations` (`location_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- -------------------------------------------------------------
--- claims
--- -------------------------------------------------------------
 CREATE TABLE `claims` (
     `claim_id`     INT AUTO_INCREMENT PRIMARY KEY,
     `listing_id`   INT NOT NULL,
@@ -100,11 +71,8 @@ CREATE TABLE `claims` (
         REFERENCES `users` (`user_id`) ON DELETE CASCADE,
     CONSTRAINT `fk_claims_reviewer` FOREIGN KEY (`reviewed_by`)
         REFERENCES `users` (`user_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- -------------------------------------------------------------
--- returns
--- -------------------------------------------------------------
 CREATE TABLE `returns` (
     `return_id`   INT AUTO_INCREMENT PRIMARY KEY,
     `claim_id`    INT NOT NULL,
@@ -120,11 +88,8 @@ CREATE TABLE `returns` (
         REFERENCES `users` (`user_id`) ON DELETE RESTRICT,
     CONSTRAINT `fk_returns_received_by` FOREIGN KEY (`received_by`)
         REFERENCES `users` (`user_id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- =============================================================
--- Seed data
--- =============================================================
 
 INSERT INTO `categories` (`name`) VALUES
     ('Electronics'),

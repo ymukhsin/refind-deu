@@ -3,8 +3,7 @@
  * ReFind — configuration template.
  *
  * Copy this file to `config/config.php` and adjust the values for
- * your local environment. `config.php` holds real credentials and
- * should not be committed to version control.
+ * your local environment. 
  */
 
 define('DB_HOST', 'localhost');
